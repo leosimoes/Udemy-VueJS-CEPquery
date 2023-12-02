@@ -8,18 +8,33 @@
         <link type="text/css" rel="stylesheet" href="styles.css"/>
     </head>
     <body>
-        <main>
+        <main id="app">
             <h1>Application of CEP queries</h1>
-            <form>
-                <label for="CEP-Num">
-                    Search for information by CEP
-                    <br />
-                    <input type="text" id="CEP-Num" name="CEP-Num" pattern="[0-9]{5}-[0-9]{3}" required>
-                </label>
-                <br />
-                <br />
-                <button id="query">Consult</button>
-            </form>
+            <h3>Search for information by CEP</h3>
+            <br />
+            <input type="text" id="CEP-Num" name="CEP-Num" pattern="[0-9]{8}" required v-model="cep">
+            <br />
+            <br />
+            <button id="query" v-on:click="consultar_cep">Consult</button>
+
+            <table v-if="cep_data != null">
+                <thead>
+                    <th colspan="2">CEP informations</th>
+                </thead>
+                <tbody>
+                <tr v-for="(value, key) in cep_data">
+                    <td>{{key}}</td>
+                    <td>{{value}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <br />
+            <br />
+            <p v-if="is_cep_not_found">CEP Not Found</p>
         </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+        <script src="scripts-vue.js"></script>
     </body>
 </html>
